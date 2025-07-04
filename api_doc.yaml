@@ -1,0 +1,180 @@
+openapi: 3.0.3
+info:
+  title: Eventos
+  version: 1.0.0
+  description: API para la administración de eventos
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/independiente-f0f-c89/EventManager/1.0.0
+  - url: http://localhost:8000
+    description: Eventos
+
+# Definición global de tags
+tags:
+  - name: Eventos
+    description: Operaciones para gestionar eventos
+
+paths:
+  /events:
+    get:
+      tags:
+        - Eventos
+      summary: Lista eventos
+      description: Lista todos los eventos o filtra por fecha.
+      parameters:
+        - name: fecha
+          in: query
+          description: Fecha para filtrar (YYYY-MM-DD)
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Lista de eventos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventRead'
+    post:
+      tags:
+        - Eventos
+      summary: Crea un nuevo evento
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventCreate'
+      responses:
+        '201':
+          description: Evento creado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventRead'
+        '400':
+          description: Error de validación de datos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /events/{event_id}:
+    parameters:
+      - $ref: '#/components/parameters/EventIdParam'
+    get:
+      tags:
+        - Eventos
+      summary: Obtiene un evento por ID
+      responses:
+        '200':
+          description: Evento encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventRead'
+        '404':
+          description: Evento no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - Eventos
+      summary: Actualiza un evento existente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventUpdate'
+      responses:
+        '200':
+          description: Evento actualizado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventRead'
+        '404':
+          description: Evento no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Eventos
+      summary: Elimina un evento
+      responses:
+        '204':
+          description: Eliminación exitosa (sin contenido)
+        '404':
+          description: Evento no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  parameters:
+    EventIdParam:
+      name: event_id
+      in: path
+      required: true
+      schema:
+        type: integer
+
+  schemas:
+    EventBase:
+      type: object
+      properties:
+        nombre:
+          type: string
+        fecha:
+          type: string
+          format: date
+        descripcion:
+          type: string
+        lugar:
+          type: string
+      required:
+        - nombre
+        - fecha
+        - descripcion
+        - lugar
+
+    EventCreate:
+      allOf:
+        - $ref: '#/components/schemas/EventBase'
+
+    EventRead:
+      allOf:
+        - $ref: '#/components/schemas/EventBase'
+        - type: object
+          properties:
+            id:
+              type: integer
+
+    EventUpdate:
+      type: object
+      properties:
+        nombre:
+          type: string
+        fecha:
+          type: string
+          format: date
+        descripcion:
+          type: string
+        lugar:
+          type: string
+
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
