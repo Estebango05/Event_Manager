@@ -3,8 +3,7 @@ Configuración de la aplicación usando Pydantic BaseSettings.
 Carga variables de entorno desde un archivo .env y expone un objeto `settings`.
 """
 import os
-from pydantic import AnyUrl
-from pydantic_settings import BaseSettings
+from pydantic import AnyUrl, BaseSettings
 
 
 class Settings(BaseSettings):

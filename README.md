@@ -145,12 +145,3 @@ El `docker-compose.yml` define:
 ```bash
 docker-compose up --build
 ```
-
----
-
-## Despliegue en Azure
-
-1. **Pipeline CI/CD:** archivo `azure-pipelines.yml` en la raíz.
-2. **Backend:** publicar en Azure App Service o Azure Container Instances.
-3. **Frontend:** desplegar como Static Web App o en contenedor.
-4. Documentar paso a paso en `DEPLOY.md`.

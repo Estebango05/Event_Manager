@@ -18,6 +18,7 @@ def create_app() -> FastAPI:
         allow_origins=[
             "http://localhost:3000",  # tu front en dev
             # Puedes poner "*" para permitir todos los orígenes
+            "*"
         ],
         allow_credentials=True,
         allow_methods=["*"],
