@@ -53,16 +53,15 @@ El sistema permite crear, listar, filtrar por fecha y eliminar eventos. Incluye 
 │   ├── requirements.txt
 │
 ├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/       # Componentes reutilizables (formularios, botones, alerts)
-│   │   ├── pages/            # Vistas: lista de eventos, crear, editar, etc.
-│   │   ├── services/         # Cliente HTTP (axios) y llamadas a la API
-│   │   ├── App.js
-│   │   └── index.js
-│   ├── tailwind.config.js
-│   ├── package.json
-│   └── .env.local            # URL de la API, variables de entorno para desarrollo
+│   |── app/
+│     ├── public/
+│     ├── src/
+│     │   ├── components/       # Componentes reutilizables (formularios, botones, alerts)
+│     │   ├── pages/            # Vistas: lista de eventos, crear, editar, etc.
+│     │   ├── App.js
+│     │   ├── api.js
+│     │   └── index.js
+│     ├── package.json
 │
 ├── .gitignore               # Ignora __pycache__, node_modules, .env, etc.
 └── README.md
